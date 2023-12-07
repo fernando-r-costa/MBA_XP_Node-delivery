@@ -24,7 +24,7 @@ async function criarPedido(req, res, next) {
 async function atualizarPedido(req, res, next) {
     try {
         const pedido = req.body
-        if (!pedido.cliente || !pedido.produto || pedido.valor == null || !pedido.entregue) {
+        if (!pedido.id || !pedido.cliente || !pedido.produto || pedido.valor == null || pedido.entregue == null) {
             throw new Error("Cliente, Produto, Valor e Entregue são obrigatórios.")
         }
         res.send(await DeliveryService.atualizarPedido(pedido))
@@ -72,7 +72,7 @@ async function buscaTotalValorProduto(req, res, next) {
 
 async function buscaMaisVendidos(req, res, next) {
     try {
-        res.send(await DeliveryService.buscaMaisVendidos(req.params.produto))
+        res.send(await DeliveryService.buscaMaisVendidos())
     } catch (err) {
         next(err)
     }
